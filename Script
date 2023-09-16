@@ -140,7 +140,7 @@ for index, vehicle_data in next, dependencies.modules.vehicle_data do
         dependencies.motorcycles[vehicle_data.Make] = true;
     end;
 
-    if vehicle_data.Type ~= "Chassis" and vehicle_data.Type ~= "Motorcycle" and vehicle_data.Type ~= "Heli" and vehicle_data.Type ~= "DuneBuggy" and vehicle_data.Make ~= "Volt" then -- weird vehicles that are not supported
+    if vehicle_data.Type ~= "Chassis" and vehicle_data.Type ~= "Motorcycle" and vehicle_data.Type ~= "DuneBuggy" and vehicle_data.Make ~= "Volt" then -- weird vehicles that are not supported
         dependencies.unsupported_vehicles[vehicle_data.Make] = true;
     end;
     
@@ -225,9 +225,7 @@ local function teleport(cframe, tried) -- unoptimized
 
     if vehicle_object and vehicle_object:FindFirstChild("Seat") then
         local vehicle_distance = (vehicle_object.Seat.Position - player.Character.HumanoidRootPart.Position).Magnitude;
-        if target_distance < vehicle_distance then -- if target position is closer than the nearest vehicle
-            movement:move_to_position(player.Character.HumanoidRootPart, cframe, dependencies.variables.player_speed);
-else 
+    
             if vehicle_object:FindFirstChild("Seat") and vehicle_object.Seat.PlayerName.Value ~= player.Name then
                 movement:move_to_position(player.Character.HumanoidRootPart, vehicle_object.Seat.CFrame, dependencies.variables.player_speed, false, vehicle_object, tried);
 local UI = require(game:GetService("ReplicatedStorage").Module:WaitForChild("UI"));
@@ -238,7 +236,7 @@ local UI = require(game:GetService("ReplicatedStorage").Module:WaitForChild("UI"
                     v.Timed = true
                     v:Callback(v, true)
                 end
-            end
+         
         end
 
                 dependencies.variables.stopVelocity = true;
