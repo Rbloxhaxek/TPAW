@@ -59,7 +59,7 @@ function utilities:get_nearest_vehicle(tried) -- unoptimized
     local distance = math.huge;
 
     for index, action in next, dependencies.modules.ui.CircleAction.Specs do -- all of the interations
-        if action.Name == "Enter Driver" or action.Name == "Hijack" and action.IsVehicle and action.ShouldAllowEntry == true and action.Enabled == true then -- if the interaction is to enter the driver seat of a vehicle
+        if action.Name == "Enter Driver" or action.Name == "Hijack" and action.IsVehicle and action.Enabled == true then -- if the interaction is to enter the driver seat of a vehicle
             local vehicle = action.ValidRoot;
 
             if not table.find(tried, vehicle) and workspace.VehicleSpawns:FindFirstChild(vehicle.Name) then
@@ -230,6 +230,16 @@ local function teleport(cframe, tried) -- unoptimized
 else 
             if vehicle_object:FindFirstChild("Seat") and vehicle_object.Seat.PlayerName.Value ~= player.Name then
                 movement:move_to_position(player.Character.HumanoidRootPart, vehicle_object.Seat.CFrame, dependencies.variables.player_speed, false, vehicle_object, tried);
+local UI = require(game:GetService("ReplicatedStorage").Module:WaitForChild("UI"));
+        for i,v in pairs (UI.CircleAction.Specs) do
+            if v.Name == "Hijack" then
+                if v.Part.Parent.Name == "Heli" then
+                    v.Duration = 0
+                    v.Timed = true
+                    v:Callback(v, true)
+                end
+            end
+        end
 
                 dependencies.variables.stopVelocity = true;
 
