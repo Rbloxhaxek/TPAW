@@ -34,7 +34,7 @@ local dependencies = {
     },
     helicopters = { Heli = true }, -- heli is included in free vehicles
     motorcycles = { Volt = true }, -- volt type is "custom" but works the same as a motorcycle
-    free_vehicles = { Camaro = true },
+    free_vehicles = { Camaro = true, Heli = true },
     unsupported_vehicles = { SWATVan = true },
     door_positions = { }    
 };
@@ -59,7 +59,7 @@ function utilities:get_nearest_vehicle(tried) -- unoptimized
     local distance = math.huge;
 
     for index, action in next, dependencies.modules.ui.CircleAction.Specs do -- all of the interations
-        if action.IsVehicle and action.ShouldAllowEntry == true and action.Enabled == true and action.Name == "Enter Driver" then -- if the interaction is to enter the driver seat of a vehicle
+        if action.Name == "Enter Driver" or action.Name == "Hijack" and action.IsVehicle and action.ShouldAllowEntry == true and action.Enabled == true then -- if the interaction is to enter the driver seat of a vehicle
             local vehicle = action.ValidRoot;
 
             if not table.find(tried, vehicle) and workspace.VehicleSpawns:FindFirstChild(vehicle.Name) then
